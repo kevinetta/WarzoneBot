@@ -1,0 +1,8 @@
+@relation iris-weka.filters.unsupervised.attribute.Remove-R1-2
+
+@attribute total_armies numeric
+@attribute total_territories numeric
+@attribute class {Win, Loss, Tie}
+
+@data
+0.5,0.5,Win

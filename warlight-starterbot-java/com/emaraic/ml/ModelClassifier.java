@@ -20,8 +20,8 @@ import weka.core.SerializationHelper;
  */
 public class ModelClassifier {
 
-    private Attribute petallength;
-    private Attribute petalwidth;
+    private Attribute total_armies;
+    private Attribute total_territories;
 
     private ArrayList<Attribute> attributes;
     private ArrayList<String> classVal;
@@ -29,16 +29,16 @@ public class ModelClassifier {
 
 
     public ModelClassifier() {
-        petallength = new Attribute("petallength");
-        petalwidth = new Attribute("petalwidth");
+        total_armies = new Attribute("total_armies");
+        total_territories = new Attribute("total_territories");
         attributes = new ArrayList<Attribute>();
         classVal = new ArrayList<String>();
-        classVal.add("Iris-setosa");
-        classVal.add("Iris-versicolor");
-        classVal.add("Iris-virginica");
+        classVal.add("Win");
+        classVal.add("Loss");
+        classVal.add("Tie");
 
-        attributes.add(petallength);
-        attributes.add(petalwidth);
+        attributes.add(total_armies);
+        attributes.add(total_territories);
 
         attributes.add(new Attribute("class", classVal));
         dataRaw = new Instances("TestInstances", attributes, 0);
@@ -46,9 +46,9 @@ public class ModelClassifier {
     }
 
     
-    public Instances createInstance(double petallength, double petalwidth, double result) {
+    public Instances createInstance(double total_armies, double total_territories, double result) {
         dataRaw.clear();
-        double[] instanceValue1 = new double[]{petallength, petalwidth, 0};
+        double[] instanceValue1 = new double[]{total_armies, total_territories, 0};
         dataRaw.add(new DenseInstance(1.0, instanceValue1));
         return dataRaw;
     }

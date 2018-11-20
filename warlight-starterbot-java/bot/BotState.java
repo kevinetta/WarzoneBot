@@ -36,6 +36,10 @@ public class BotState {
 	
 	private int roundNumber;
 	
+	private int myTotalArmies;
+	
+	private int myTotalTerritories;
+	
 	public BotState()
 	{
 		pickableStartingRegions = new ArrayList<Region>();
@@ -223,7 +227,31 @@ public class BotState {
 	public Map getFullMap(){
 		return fullMap;
 	}
+	
+	public int getMyTotalTerritories(){
+		myTotalTerritories = 0;
+		for(Region fromRegion : this.getVisibleMap().getRegions())
+		{
+			if(fromRegion.ownedByPlayer(myName))
+			{
+				myTotalTerritories++;
+			}
+		}
+		return myTotalTerritories;
+	}
 
+	public int getMyTotalArmies(){
+		myTotalArmies = 0;
+		for(Region fromRegion : this.getVisibleMap().getRegions())
+		{
+			if(fromRegion.ownedByPlayer(myName))
+			{
+				myTotalArmies += fromRegion.getArmies();
+			}
+		}
+		return myTotalArmies;
+	}
+			
 	public ArrayList<Move> getOpponentMoves(){
 		return opponentMoves;
 	}
