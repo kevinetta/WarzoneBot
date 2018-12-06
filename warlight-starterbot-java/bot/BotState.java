@@ -36,7 +36,7 @@ public class BotState {
 	
 	private int roundNumber;
 	
-	private int myTotalArmies;
+	public int myTotalArmies;
 	
 	private int myTotalTerritories;
 	

@@ -10,16 +10,22 @@
 
 package main;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 
 public class Region {
 	
+    private static final String UNKNOWN = "unknown";
+    private static final String NEUTRAL = "neutral";
+    
 	private int id;
 	private LinkedList<Region> neighbors;
 	private SuperRegion superRegion;
 	private int armies;
 	private String playerName;
+    private String owner;
 	
 	public Region(int id, SuperRegion superRegion)
 	{
@@ -43,6 +49,20 @@ public class Region {
 		superRegion.addSubRegion(this);
 	}
 	
+    /**
+     * @return A string with the name of the player that owns this region
+     */
+    public String getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner Sets the Name of the player that this Region belongs to
+     */
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+    
 	public void addNeighbor(Region neighbor)
 	{
 		if(!neighbors.contains(neighbor))
@@ -101,6 +121,46 @@ public class Region {
 	public LinkedList<Region> getNeighbors() {
 		return neighbors;
 	}
+	
+    public LinkedList<Region> getNeutralNeighbors() {
+        LinkedList<Region> neutralNeighbors = new LinkedList<>();
+
+        for (Region region : neighbors) {
+            if (region.isNeutral()) {
+                neutralNeighbors.add(region);
+            }
+        }
+
+        return neutralNeighbors;
+    }
+
+    public LinkedList<Region> getNeighborsNotOwned(String playerName) {
+        LinkedList<Region> unownedNeighbors = new LinkedList<>();
+
+        for (Region region : neighbors) {
+            if (!region.ownedByPlayer(playerName)) {
+                unownedNeighbors.add(region);
+            }
+        }
+
+        return unownedNeighbors;
+    }
+
+    public Set<Region> getNeighorsOwnedBy(String playerName) {
+        Set<Region> neighborsOwned = new HashSet<>();
+
+        for (Region region : neighbors) {
+            if (!region.ownedByPlayer(playerName)) {
+                neighborsOwned.add(region);
+            }
+        }
+
+        return neighborsOwned;
+    }
+    
+    private boolean isNeutral() {
+        return owner.equals(NEUTRAL);
+    }
 	
 	/**
 	 * @return The SuperRegion this Region is part of

@@ -30,6 +30,18 @@ public class SuperRegion {
 			subRegions.add(subRegion);
 	}
 	
+	public float percentOwned(String player) {
+        float ownedRegions = 0.0f;
+
+        for (Region region : this.subRegions) {
+            if (player.equals(region.getOwner())) {
+                ownedRegions++;
+            }
+        }
+
+        return ownedRegions / this.subRegions.size();
+    }
+	
 	/**
 	 * @return A string with the name of the player that fully owns this SuperRegion
 	 */
